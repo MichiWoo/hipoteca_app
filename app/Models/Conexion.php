@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Conexion extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'ip',
+        'fecha',
+        'pagina',
+        'movil',
+        'formulario',
+    ];
 }

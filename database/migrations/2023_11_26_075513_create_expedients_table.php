@@ -33,6 +33,9 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
+            $table->foreignId('borrow_id')->nullable()->constrained()
+                    ->onUpdate('cascade')
+                    ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -44,6 +47,7 @@ return new class extends Migration
     {
         Schema::table('expedients', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
+            $table->dropForeign(['borrow_id']);
         });
         Schema::dropIfExists('expedients');
     }
