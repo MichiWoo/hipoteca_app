@@ -20,9 +20,6 @@ return new class extends Migration
             $table->foreignId('bank_id')->nullable()->constrained()
                     ->onUpdate('cascade')
                     ->onDelete('cascade');
-            $table->foreignId('expedient_id')->nullable()->constrained()
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -34,7 +31,6 @@ return new class extends Migration
     {
         Schema::table('borrows', function (Blueprint $table) {
             $table->dropForeign(['bank_id']);
-            $table->dropForeign(['expedient_id']);
         });
         Schema::dropIfExists('borrows');
     }
