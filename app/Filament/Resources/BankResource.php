@@ -20,9 +20,13 @@ class BankResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $modelLabel = 'Bancos';
+    protected static ?string $modelLabel = 'Banco';
+
+    protected static ?string $pluralModelLabel = 'Bancos';
 
     protected static ?string $navigationGroup = 'Catálogos';
+
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
