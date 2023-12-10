@@ -12,6 +12,7 @@
         "bensampo/laravel-enum": "^6.7",
         "filament/filament": "^3.0-stable",
         "guzzlehttp/guzzle": "^7.2",
+        "jenssegers/agent": "^2.6",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8"
