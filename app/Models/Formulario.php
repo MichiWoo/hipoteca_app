@@ -7,9 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 
-class Forms extends Model
+class Formulario extends Model
 {
     use HasFactory;
+
+    protected $table = 'forms';
 
     protected $fillable = [
         'nombre',
