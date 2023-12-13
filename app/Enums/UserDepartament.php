@@ -6,10 +6,10 @@ use Filament\Support\Contracts\HasIcon;
 use Filament\Support\Contracts\HasLabel;
 use Filament\Support\Contracts\HasColor;
  
-enum UserDepartament: string implements HasLabel, HasColor, HasIcon
+enum UserDepartament: int implements HasLabel, HasColor, HasIcon
 {
-    case SISTEMA = 'sistema';
-    case EXTERNO = 'externo';
+    case SISTEMA = 1;
+    case EXTERNO = 2;
  
     public function getLabel(): ?string
     {

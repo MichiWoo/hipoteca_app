@@ -15,7 +15,7 @@ enum UserCategory: int implements HasLabel, HasColor, HasIcon
     public function getLabel(): ?string
     {
         return match ($this) {
-            self::ADMINISTRATOR => 'Adminitrador',
+            self::ADMINISTRATOR => 'Administrador',
             self::SUPERVISOR => 'Supervisor',
             self::USER => 'Usuario',
         };

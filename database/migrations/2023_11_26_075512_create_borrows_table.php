@@ -17,9 +17,7 @@ return new class extends Migration
             $table->float('inicial',10,2);
             $table->float('pendiente',10,2);
             $table->float('cuota',10,2);
-            $table->foreignId('bank_id')->nullable()->constrained()
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+            $table->foreignId('bank_id')->nullable()->constrained('banks')->cascadeOnDelete();
             $table->timestamps();
         });
     }

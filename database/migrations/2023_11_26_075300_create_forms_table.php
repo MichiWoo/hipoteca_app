@@ -21,9 +21,7 @@ return new class extends Migration
             $table->string('ip');
             $table->date('fecha');
             $table->integer('movil');
-            $table->foreignId('user_id')->nullable()->constrained()
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
             $table->timestamps();
         });
     }

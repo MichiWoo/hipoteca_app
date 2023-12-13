@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Enums\ExpedientStatus;
+use App\Enums\ViviendaType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,7 +35,12 @@ class Expedient extends Model
         'borrow_id',
     ];
 
-    public function usuario():BelongsTo
+    protected $casts = [
+        'tipo' => ViviendaType::class,
+        'estado' => ExpedientStatus::class
+    ];
+
+    public function user():BelongsTo
     {
         return $this->belongsTo(User::class);
     }
