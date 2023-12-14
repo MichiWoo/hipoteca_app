@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('edad');
             $table->string('dni');
             $table->string('empleo');
-            $table->string('tipo_contrato')->default(ContratoType::Indefinido);
+            $table->integer('tipo_contrato')->default(ContratoType::INDEFINIDO);
             $table->integer('antiguedad');
             $table->float('salario',10,2);
             $table->integer('pagos');

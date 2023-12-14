@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\ContratoType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -24,8 +25,12 @@ class Holder extends Model
         'expedient_id'
     ];
 
-    public function expediente(): BelongsTo
+    protected $casts = [
+        'tipo_contrato' => ContratoType::class,
+    ];
+
+    public function expedient(): BelongsTo
     {
-        return $this->belongsTo(Expediente::class);
+        return $this->belongsTo(Expedient::class);
     }
 }

@@ -45,7 +45,7 @@ class Expedient extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function titulares(): HasMany
+    public function holders(): HasMany
     {
         return $this->hasMany(Holder::class);
     }
