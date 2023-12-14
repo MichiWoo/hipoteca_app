@@ -15,8 +15,14 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
+use Filament\Tables\Actions\ActionGroup;
+use Filament\Tables\Actions\DeleteAction;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Actions\ViewAction;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -83,29 +89,45 @@ class ExpedientResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
+            ->emptyStateHeading('No hay Expedientes')
             ->columns([
-                TextColumn::make('id'),
+                TextColumn::make('id')
+                    ->tooltip('Número de Expediente')
+                    ->label('No. Exp.'),
                 TextColumn::make('holder')
                     ->label('Titulares'),
                 TextColumn::make('fecha')
-                    ->label('Fecha Rec.'),
-                TextColumn::make('user.name'),
+                    ->tooltip('Fecha de Recepción')
+                    ->label('Fecha Rec.')
+                    ->sortable(),
+                TextColumn::make('user.name')
+                    ->weight(FontWeight::Bold),
                 TextColumn::make('telefono1')
-                ->label('Teléfono'),
-                TextColumn::make('localidad'),
-                TextColumn::make('provincia'),
+                    ->label('Teléfono'),
+                TextColumn::make('localidad')
+                    ->searchable()
+                    ->sortable(),
+                TextColumn::make('provincia')
+                    ->searchable()
+                    ->sortable(),
                 TextColumn::make('tipo')
                     ->badge()
                     ->label('Operación'),
-                TextColumn::make('banco'),
+                TextColumn::make('banco')
+                    ->searchable(),
                 TextColumn::make('estado')
                     ->badge(),
             ])
             ->filters([
-                //
+                SelectFilter::make('tipo')
+                    ->options(ExpedientStatus::class)
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                ActionGroup::make([
+                    EditAction::make(),
+                    ViewAction::make(),
+                    DeleteAction::make()
+                ])
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -126,6 +148,7 @@ class ExpedientResource extends Resource
         return [
             'index' => Pages\ListExpedients::route('/'),
             'create' => Pages\CreateExpedient::route('/create'),
+            'view' => Pages\ViewExpedient::route('/{record}'),
             'edit' => Pages\EditExpedient::route('/{record}/edit'),
         ];
     }
