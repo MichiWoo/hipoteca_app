@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('expedients', function (Blueprint $table) {
             $table->id();
             $table->date('fecha');
-            $table->string('tipo')->default(ViviendaType::Compraventa);
+            $table->integer('tipo')->default(ViviendaType::COMPRAVENTA);
             $table->integer('vivienda');
-            $table->string('estado')->default(ExpedientStatus::NoContactado);
+            $table->integer('estado')->default(ExpedientStatus::NO_CONTACTADO);
             $table->date('fecha_llamada');
             $table->string('telefono1');
-            $table->string('telefono2');
+            $table->string('telefono2')->nullable();
             $table->string('email');
             $table->float('importe_compra',10,2);
             $table->float('aportacion',10,2);
@@ -30,12 +30,8 @@ return new class extends Migration
             $table->string('provincia');
             $table->string('localidad');
             $table->string('direccion');
-            $table->foreignId('user_id')->nullable()->constrained()
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
-            $table->foreignId('borrow_id')->nullable()->constrained()
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
+            $table->foreignId('borrow_id')->nullable()->constrained('borrows')->cascadeOnDelete();
             $table->timestamps();
         });
     }

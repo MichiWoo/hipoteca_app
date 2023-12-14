@@ -7,6 +7,7 @@ namespace App\Models;
 use App\Enums\UserCategory;
 use App\Enums\UserDepartament;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -49,4 +50,9 @@ class User extends Authenticatable
         'categoria' => UserCategory::class,
         'departamento' => UserDepartament::class,
     ];
+
+    public function expedientes(): HasMany
+    {
+        return $this->hasMany(Expedient::class);
+    }
 }

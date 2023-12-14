@@ -15,12 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('texto');
             $table->date('fecha');
-            $table->foreignId('user_id')->nullable()->constrained()
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
-            $table->foreignId('expedient_id')->nullable()->constrained()
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+            $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
+            $table->foreignId('expedient_id')->nullable()->constrained('expedients')->cascadeOnDelete();
             $table->timestamps();
         });
     }

@@ -16,12 +16,8 @@ return new class extends Migration
             $table->date('fecha_presentacion');
             $table->date('fecha_resolucion')->nullable();
             $table->integer('estado');
-            $table->foreignId('bank_id')->nullable()->constrained()
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
-            $table->foreignId('expedient_id')->nullable()->constrained()
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+            $table->foreignId('bank_id')->nullable()->constrained('banks')->cascadeOnDelete();
+            $table->foreignId('expedient_id')->nullable()->constrained('expedients')->cascadeOnDelete();
             $table->timestamps();
         });
     }

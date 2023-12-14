@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::table('borrows', function (Blueprint $table) {
             
-            $table->foreignId('expedient_id')->nullable()->constrained()
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade')
+            $table->foreignId('expedient_id')->nullable()->constrained('expedients')->cascadeOnDelete()
                     ->after('bank_id');
         });
     }

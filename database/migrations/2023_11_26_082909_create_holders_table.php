@@ -23,9 +23,7 @@ return new class extends Migration
             $table->float('salario',10,2);
             $table->integer('pagos');
             $table->float('renta',10,2);
-            $table->foreignId('expedient_id')->nullable()->constrained()
-                    ->onUpdate('cascade')
-                    ->onDelete('cascade');
+            $table->foreignId('expedient_id')->nullable()->constrained('expedients')->cascadeOnDelete();
             $table->timestamps();
         });
     }
