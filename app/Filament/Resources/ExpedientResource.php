@@ -7,6 +7,7 @@ use App\Enums\ViviendaType;
 use App\Filament\Resources\ExpedientResource\Pages;
 use App\Filament\Resources\ExpedientResource\RelationManagers;
 use App\Filament\Resources\HolderResource\RelationManagers\HoldersRelationManager;
+use App\Filament\Resources\ObservationResource\RelationManagers\ObservationsRelationManager;
 use App\Models\Expedient;
 use Faker\Provider\ar_EG\Text;
 use Filament\Forms;
@@ -96,7 +97,9 @@ class ExpedientResource extends Resource
                     ->tooltip('Número de Expediente')
                     ->label('No. Exp.'),
                 TextColumn::make('holders.nombre')
-                    ->label('Titular(es)'),
+                    ->label('Titular(es)')
+                    ->listWithLineBreaks()
+                    ->limitList(2),
                 TextColumn::make('fecha')
                     ->tooltip('Fecha de Recepción')
                     ->label('Fecha Rec.')
@@ -140,7 +143,8 @@ class ExpedientResource extends Resource
     public static function getRelations(): array
     {
         return [
-            HoldersRelationManager::class
+            HoldersRelationManager::class,
+            ObservationsRelationManager::class,
         ];
     }
 
