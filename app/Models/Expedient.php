@@ -60,7 +60,7 @@ class Expedient extends Model
         return $this->hasMany(Comment::class);
     }
 
-    public function observaciones(): HasMany
+    public function observations(): HasMany
     {
         return $this->hasMany(Observation::class);
     }

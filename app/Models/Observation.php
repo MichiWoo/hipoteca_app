@@ -16,12 +16,12 @@ class Observation extends Model
         'user_id',
     ];
 
-    public function usuario(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function expediente(): BelongsTo
+    public function expedient(): BelongsTo
     {
         return $this->belongsTo(Expedient::class);
     }
