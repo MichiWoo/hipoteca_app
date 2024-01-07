@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('pendiente',10,2);
             $table->float('cuota',10,2);
             $table->foreignId('bank_id')->nullable()->constrained('banks')->cascadeOnDelete();
+            $table->foreignId('expedient_id')->nullable()->constrained('expedients')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -29,6 +30,7 @@ return new class extends Migration
     {
         Schema::table('borrows', function (Blueprint $table) {
             $table->dropForeign(['bank_id']);
+            $table->dropForeign(['expedient_id']);
         });
         Schema::dropIfExists('borrows');
     }

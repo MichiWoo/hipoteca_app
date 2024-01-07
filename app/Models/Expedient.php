@@ -50,7 +50,7 @@ class Expedient extends Model
         return $this->hasMany(Holder::class);
     }
 
-    public function prestamo(): HasOne
+    public function borrow(): HasOne
     {
         return $this->HasOne(Borrow::class);
     }

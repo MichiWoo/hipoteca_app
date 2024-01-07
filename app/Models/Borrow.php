@@ -18,12 +18,12 @@ class Borrow extends Model
         'bank_id'
     ];
 
-    public function banco(): BelongsTo
+    public function bank(): BelongsTo
     {
         return $this->belongsTo(Bank::class);
     }
 
-    public function expediente(): BelongsTo
+    public function expedient(): BelongsTo
     {
         return $this->belongsTo(Expedient::class);
     }
