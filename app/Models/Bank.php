@@ -15,12 +15,12 @@ class Bank extends Model
     ];
 
 
-    public function expedientes(): BelongsToMany
+    public function expedients(): BelongsToMany
     {
         return $this->belongsToMany(Expedient::class);
     }
 
-    public function tramites(): BelongsToMany
+    public function procedure(): BelongsToMany
     {
         return $this->belongsToMany(Procedure::class);
     }

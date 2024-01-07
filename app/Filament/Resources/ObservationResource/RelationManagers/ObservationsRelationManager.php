@@ -30,6 +30,7 @@ class ObservationsRelationManager extends RelationManager
                     ->required()
                     ->maxLength(255),
                 DatePicker::make('fecha')
+                    ->default(date('Y-m-d'))
                     ->required()
                     ->format('Y-m-d'),
                 TextInput::make('user_id')

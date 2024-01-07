@@ -8,10 +8,12 @@ use App\Filament\Resources\ExpedientResource\Pages;
 use App\Filament\Resources\ExpedientResource\RelationManagers;
 use App\Filament\Resources\HolderResource\RelationManagers\HoldersRelationManager;
 use App\Filament\Resources\ObservationResource\RelationManagers\ObservationsRelationManager;
+use App\Models\Bank;
 use App\Models\Expedient;
-use Faker\Provider\ar_EG\Text;
+use DateTime;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Fieldset;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -19,6 +21,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Support\Enums\FontWeight;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
@@ -48,6 +51,7 @@ class ExpedientResource extends Resource
             ->schema([
                 DatePicker::make('fecha')
                     ->required()
+                    ->default(date('Y-m-d'))
                     ->format('Y-m-d'),
                 Select::make('tipo')
                     ->required()
@@ -61,6 +65,7 @@ class ExpedientResource extends Resource
                     ->options(ExpedientStatus::class),
                 DatePicker::make('fecha_llamada')
                     ->required()
+                    ->default(date('Y-m-d'))
                     ->format('Y-m-d'),
                 TextInput::make('telefono1')
                     ->required()
@@ -84,7 +89,24 @@ class ExpedientResource extends Resource
                 TextInput::make('localidad')
                     ->maxLength(255),
                 TextInput::make('direccion')
-                    ->maxLength(255)
+                    ->maxLength(255),
+                Fieldset::make('borrow_id')
+                    ->relationship('borrow')
+                    ->label(('Préstamo'))
+                    ->schema([
+                        TextInput::make('tipo')
+                            ->required()
+                            ->maxLength(255),
+                        Select::make('bank_id')
+                            ->options(Bank::all()->pluck('nombre', 'id'))
+                            ->label('Entidad'),
+                        TextInput::make('inicial')
+                            ->numeric(),
+                        TextInput::make('pendiente')
+                            ->numeric(),
+                        TextInput::make('cuota')
+                            ->numeric(),
+                    ])
             ]);
     }
 
@@ -130,7 +152,18 @@ class ExpedientResource extends Resource
                 ActionGroup::make([
                     EditAction::make(),
                     ViewAction::make(),
-                    DeleteAction::make()
+                    DeleteAction::make(),
+                    Action::make('Borrar Préstamo')
+                        ->icon('heroicon-o-credit-card')
+                        ->color('danger')
+                        ->modalHeading('Préstamo')
+                        ->modalSubmitActionLabel('¿Desea borrar el préstamo?')
+                        ->successNotificationTitle('Préstamo borrado')
+                        ->requiresConfirmation()
+                        ->action(function (Expedient $record){
+                            $record->borrow()->delete();
+                        })
+                        ->visible(fn (Expedient $record): bool =>  !is_null($record->borrow)),
                 ])
             ])
             ->bulkActions([
@@ -143,8 +176,8 @@ class ExpedientResource extends Resource
     public static function getRelations(): array
     {
         return [
-            HoldersRelationManager::class,
             ObservationsRelationManager::class,
+            HoldersRelationManager::class,
         ];
     }
 
