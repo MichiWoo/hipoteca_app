@@ -32,7 +32,6 @@ class Expedient extends Model
         'localidad',
         'direccion',
         'user_id',
-        'borrow_id',
     ];
 
     protected $casts = [
@@ -65,7 +64,7 @@ class Expedient extends Model
         return $this->hasMany(Observation::class);
     }
 
-    public function tramites(): HasMany
+    public function procedures(): HasMany
     {
         return $this->hasMany(Procedure::class);
     }
