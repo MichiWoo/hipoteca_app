@@ -8,6 +8,7 @@ use App\Filament\Resources\ExpedientResource\Pages;
 use App\Filament\Resources\ExpedientResource\RelationManagers;
 use App\Filament\Resources\HolderResource\RelationManagers\HoldersRelationManager;
 use App\Filament\Resources\ObservationResource\RelationManagers\ObservationsRelationManager;
+use App\Filament\Resources\ProcedureResource\RelationManagers\ProceduresRelationManager;
 use App\Models\Bank;
 use App\Models\Expedient;
 use DateTime;
@@ -178,6 +179,7 @@ class ExpedientResource extends Resource
         return [
             ObservationsRelationManager::class,
             HoldersRelationManager::class,
+            ProceduresRelationManager::class,
         ];
     }
 

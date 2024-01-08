@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\BankStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -15,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->date('fecha_presentacion');
             $table->date('fecha_resolucion')->nullable();
-            $table->integer('estado');
+            $table->integer('estado')->default(BankStatus::PENDIENTE);
             $table->foreignId('bank_id')->nullable()->constrained('banks')->cascadeOnDelete();
             $table->foreignId('expedient_id')->nullable()->constrained('expedients')->cascadeOnDelete();
             $table->timestamps();

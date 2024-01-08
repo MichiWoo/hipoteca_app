@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\BankStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -15,15 +16,18 @@ class Procedure extends Model
         'fecha_presentacion',
         'fecha_resolucion',
         'estado',
-        'banco_id',
+        'bank_id',
     ];
 
-    public function banco(): BelongsTo
+    protected $casts = [
+        'estado' => BankStatus::class
+    ];
+    public function bank(): BelongsTo
     {
         return $this->belongsTo(Bank::class);
     }
 
-    public function expediente(): BelongsTo
+    public function expedient(): BelongsTo
     {
         return $this->belongsTo(Expedient::class);
     }
