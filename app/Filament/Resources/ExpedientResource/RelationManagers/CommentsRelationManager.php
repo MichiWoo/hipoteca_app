@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\ObservationResource\RelationManagers;
+namespace App\Filament\Resources\ExpedientResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
@@ -14,13 +14,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 
-class ObservationsRelationManager extends RelationManager
+class CommentsRelationManager extends RelationManager
 {
-    protected static string $relationship = 'observations';
+    protected static string $relationship = 'comments';
 
-    protected static ?string $modelLabel = 'Observación';
+    protected static ?string $modelLabel = 'Comentario';
 
-    protected static ?string $pluralModelLabel = 'Observaciones';
+    protected static ?string $pluralModelLabel = 'Comentarios';
 
     public function form(Form $form): Form
     {

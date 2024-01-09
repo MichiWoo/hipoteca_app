@@ -54,7 +54,7 @@ class Expedient extends Model
         return $this->HasOne(Borrow::class);
     }
 
-    public function comentarios(): HasMany
+    public function comments(): HasMany
     {
         return $this->hasMany(Comment::class);
     }

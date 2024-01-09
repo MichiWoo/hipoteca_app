@@ -6,9 +6,10 @@ use App\Enums\ExpedientStatus;
 use App\Enums\ViviendaType;
 use App\Filament\Resources\ExpedientResource\Pages;
 use App\Filament\Resources\ExpedientResource\RelationManagers;
-use App\Filament\Resources\HolderResource\RelationManagers\HoldersRelationManager;
-use App\Filament\Resources\ObservationResource\RelationManagers\ObservationsRelationManager;
-use App\Filament\Resources\ProcedureResource\RelationManagers\ProceduresRelationManager;
+use App\Filament\Resources\ExpedientResource\RelationManagers\CommentsRelationManager;
+use App\Filament\Resources\ExpedientResource\RelationManagers\HoldersRelationManager;
+use App\Filament\Resources\ExpedientResource\RelationManagers\ObservationsRelationManager;
+use App\Filament\Resources\ExpedientResource\RelationManagers\ProceduresRelationManager;
 use App\Models\Bank;
 use App\Models\Expedient;
 use DateTime;
@@ -27,6 +28,7 @@ use Filament\Tables\Actions\ActionGroup;
 use Filament\Tables\Actions\DeleteAction;
 use Filament\Tables\Actions\EditAction;
 use Filament\Tables\Actions\ViewAction;
+use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
@@ -140,8 +142,9 @@ class ExpedientResource extends Resource
                 TextColumn::make('tipo')
                     ->badge()
                     ->label('Operación'),
-                TextColumn::make('banco')
-                    ->searchable(),
+                IconColumn::make('banco')
+                    ->getStateUsing(fn ($record): bool => count($record->procedures) > 0)
+                    ->boolean(),
                 TextColumn::make('estado')
                     ->badge(),
             ])
@@ -177,9 +180,10 @@ class ExpedientResource extends Resource
     public static function getRelations(): array
     {
         return [
-            ObservationsRelationManager::class,
             HoldersRelationManager::class,
+            ObservationsRelationManager::class,
             ProceduresRelationManager::class,
+            CommentsRelationManager::class,
         ];
     }
 
