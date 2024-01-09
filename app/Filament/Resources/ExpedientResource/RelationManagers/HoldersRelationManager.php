@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\HolderResource\RelationManagers;
+namespace App\Filament\Resources\ExpedientResource\RelationManagers;
 
 use App\Enums\ContratoType;
 use Filament\Forms;
@@ -9,6 +9,7 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -45,16 +46,16 @@ class HoldersRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('nombre')
             ->columns([
-                Tables\Columns\TextColumn::make('nombre'),
-                Tables\Columns\TextColumn::make('edad'),
-                Tables\Columns\TextColumn::make('dni'),
-                Tables\Columns\TextColumn::make('empleo'),
-                Tables\Columns\TextColumn::make('tipo_contrato')
+                TextColumn::make('nombre'),
+                TextColumn::make('edad'),
+                TextColumn::make('dni'),
+                TextColumn::make('empleo'),
+                TextColumn::make('tipo_contrato')
                     ->badge(),
-                Tables\Columns\TextColumn::make('antiguedad'),
-                Tables\Columns\TextColumn::make('salario'),
-                Tables\Columns\TextColumn::make('pagos'),
-                Tables\Columns\TextColumn::make('renta'),
+                TextColumn::make('antiguedad'),
+                TextColumn::make('salario'),
+                TextColumn::make('pagos'),
+                TextColumn::make('renta'),
             ])
             ->filters([
                 //

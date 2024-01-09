@@ -16,12 +16,12 @@ class Comment extends Model
         'user_id',
     ];
 
-    public function usuario(): BelongsTo
+    public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    public function expediente(): BelongsTo
+    public function expedients(): BelongsTo
     {
         return $this->belongsTo(Expedient::class);
     }

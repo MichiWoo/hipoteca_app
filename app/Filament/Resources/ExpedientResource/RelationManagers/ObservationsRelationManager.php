@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Filament\Resources\ProcedureResource\RelationManagers;
+namespace App\Filament\Resources\ExpedientResource\RelationManagers;
 
-use App\Enums\BankStatus;
-use App\Models\Bank;
 use Filament\Forms;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\Select;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
@@ -14,43 +12,41 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
-class ProceduresRelationManager extends RelationManager
+class ObservationsRelationManager extends RelationManager
 {
-    protected static string $relationship = 'Procedures';
+    protected static string $relationship = 'observations';
+
+    protected static ?string $modelLabel = 'Observación';
+
+    protected static ?string $pluralModelLabel = 'Observaciones';
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
-                Select::make('bank_id')
-                    ->label('Banco')
-                    ->options(Bank::all()->pluck('nombre', 'id')),
-                DatePicker::make('fecha_presentacion')
+                TextInput::make('texto')
                     ->required()
+                    ->maxLength(255),
+                DatePicker::make('fecha')
                     ->default(date('Y-m-d'))
+                    ->required()
                     ->format('Y-m-d'),
-                DatePicker::make('fecha_resolucion')
-                    ->required()
-                    ->default(date('Y-m-d'))
-                    ->format('Y-m-d')
-                    ->nullable(),
-                Select::make('estado')
-                    ->options(BankStatus::class)
+                TextInput::make('user_id')
+                    ->default(Auth::user()->id)
+                    ->readOnly()
             ]);
     }
 
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('fecha_presentacion')
+            ->recordTitleAttribute('texto')
             ->columns([
-                TextColumn::make('fecha_presentacion'),
-                TextColumn::make('fecha_resolucion'),
-                TextColumn::make('estado')
-                    ->sortable()
-                    ->badge(),
-                TextColumn::make('bank.nombre'),
+                TextColumn::make('texto'),
+                TextColumn::make('fecha'),
+                TextColumn::make('user.name'),
             ])
             ->filters([
                 //
