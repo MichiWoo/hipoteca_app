@@ -27,6 +27,7 @@ class GestorPanelProvider extends PanelProvider
             ->id('gestor')
             ->path('gestor')
             ->login()
+            ->registration()
             ->colors([
                 'primary' => Color::Amber,
             ])

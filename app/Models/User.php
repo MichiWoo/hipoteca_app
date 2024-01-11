@@ -6,13 +6,15 @@ namespace App\Models;
 
 use App\Enums\UserCategory;
 use App\Enums\UserDepartament;
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -51,8 +53,13 @@ class User extends Authenticatable
         'departamento' => UserDepartament::class,
     ];
 
-    public function expedientes(): HasMany
+    public function expedients(): HasMany
     {
         return $this->hasMany(Expedient::class);
+    }
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return str_ends_with($this->email, '@yourdomain.com') && $this->hasVerifiedEmail();
     }
 }
