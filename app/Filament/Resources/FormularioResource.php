@@ -19,7 +19,7 @@ class FormularioResource extends Resource
 {
     protected static ?string $model = Formulario::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-paper-airplane';
 
     protected static ?string $modelLabel = 'Formulario';
 

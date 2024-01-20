@@ -39,7 +39,7 @@ class ExpedientResource extends Resource
 {
     protected static ?string $model = Expedient::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-folder';
 
     protected static ?string $modelLabel = 'Expediente';
 
