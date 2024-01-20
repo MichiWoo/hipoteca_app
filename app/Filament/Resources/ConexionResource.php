@@ -27,7 +27,7 @@ class ConexionResource extends Resource
 {
     protected static ?string $model = Conexion::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-link';
 
     protected static ?string $modelLabel = 'Conexión';
 
