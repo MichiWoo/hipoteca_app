@@ -13,6 +13,9 @@ use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
+use Filament\Tables\Actions\EditAction;
+use Filament\Tables\Columns\CheckboxColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -69,13 +72,33 @@ class UserResource extends Resource
                 TextColumn::make('email')
                     ->searchable()
                     ->sortable(),
+                CheckboxColumn::make('email_verified_at')
+                    ->beforeStateUpdated(function ($record, $state) {
+                        // Runs before the state is saved to the database.
+                        $state = !is_null($record->email_verified_at);
+                    })
+                    ->afterStateUpdated(function ($record, $state) {
+                        // Runs after the state is saved to the database.
+                    })
             
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
+                Action::make('Verificar Email')
+                    ->icon('heroicon-o-exclamation-triangle')
+                    ->color('warning')
+                    ->modalHeading('Verificar')
+                    ->modalSubmitActionLabel('¿Desea verificar el usuario?')
+                    ->successNotificationTitle('Usuario Verificado')
+                    ->requiresConfirmation()
+                    ->action(function (User $record){
+                        $record->email_verified_at = date('Y-m-d H:m:s');
+                        $record->save();
+                    })
+                    ->visible(fn (User $record): bool =>  is_null($record->email_verified_at)),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
