@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('texto');
             $table->date('fecha');
             $table->foreignId('user_id')->nullable()->constrained('users')->cascadeOnDelete();
-            $table->foreignId('expedient_id')->nullable()->constrained('expedients')->cascadeOnDelete();
+            $table->foreignId('procedure_id')->nullable()->constrained('procedures')->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -28,7 +28,7 @@ return new class extends Migration
     {
         Schema::table('comments', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
-            $table->dropForeign(['expedient_id']);
+            $table->dropForeign(['procedures']);
         });
         Schema::dropIfExists('comments');
     }

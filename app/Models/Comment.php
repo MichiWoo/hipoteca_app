@@ -21,8 +21,8 @@ class Comment extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function expedients(): BelongsTo
+    public function procedure(): BelongsTo
     {
-        return $this->belongsTo(Expedient::class);
+        return $this->belongsTo(Procedure::class);
     }
 }

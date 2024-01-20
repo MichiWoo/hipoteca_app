@@ -183,7 +183,6 @@ class ExpedientResource extends Resource
             HoldersRelationManager::class,
             ObservationsRelationManager::class,
             ProceduresRelationManager::class,
-            CommentsRelationManager::class,
         ];
     }
 

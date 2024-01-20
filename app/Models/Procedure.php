@@ -6,7 +6,7 @@ use App\Enums\BankStatus;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Procedure extends Model
 {
@@ -27,8 +27,8 @@ class Procedure extends Model
         return $this->belongsTo(Bank::class);
     }
 
-    public function expedient(): BelongsTo
+    public function comments(): HasMany
     {
-        return $this->belongsTo(Expedient::class);
+        return $this->hasMany(Comment::class);
     }
 }
