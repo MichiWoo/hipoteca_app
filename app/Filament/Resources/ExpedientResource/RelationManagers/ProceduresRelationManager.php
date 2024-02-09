@@ -28,6 +28,8 @@ class ProceduresRelationManager extends RelationManager
 
     protected static ?string $pluralModelLabel = 'Trámites';
 
+    protected static ?string $title = 'Trámites';
+
     public function form(Form $form): Form
     {
         return $form

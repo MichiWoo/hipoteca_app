@@ -49,9 +49,9 @@ class Expedient extends Model
         return $this->hasMany(Holder::class);
     }
 
-    public function borrow(): HasOne
+    public function borrows(): HasMany
     {
-        return $this->HasOne(Borrow::class);
+        return $this->hasMany(Borrow::class);
     }
 
     public function comments(): HasMany
