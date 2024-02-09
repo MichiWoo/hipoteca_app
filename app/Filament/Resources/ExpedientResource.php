@@ -6,6 +6,7 @@ use App\Enums\ExpedientStatus;
 use App\Enums\ViviendaType;
 use App\Filament\Resources\ExpedientResource\Pages;
 use App\Filament\Resources\ExpedientResource\RelationManagers;
+use App\Filament\Resources\ExpedientResource\RelationManagers\BorrowsRelationManager;
 use App\Filament\Resources\ExpedientResource\RelationManagers\CommentsRelationManager;
 use App\Filament\Resources\ExpedientResource\RelationManagers\HoldersRelationManager;
 use App\Filament\Resources\ExpedientResource\RelationManagers\ObservationsRelationManager;
@@ -93,23 +94,6 @@ class ExpedientResource extends Resource
                     ->maxLength(255),
                 TextInput::make('direccion')
                     ->maxLength(255),
-                Fieldset::make('borrow_id')
-                    ->relationship('borrow')
-                    ->label(('Préstamo'))
-                    ->schema([
-                        TextInput::make('tipo')
-                            ->required()
-                            ->maxLength(255),
-                        Select::make('bank_id')
-                            ->options(Bank::all()->pluck('nombre', 'id'))
-                            ->label('Entidad'),
-                        TextInput::make('inicial')
-                            ->numeric(),
-                        TextInput::make('pendiente')
-                            ->numeric(),
-                        TextInput::make('cuota')
-                            ->numeric(),
-                    ])
             ]);
     }
 
@@ -183,6 +167,7 @@ class ExpedientResource extends Resource
             HoldersRelationManager::class,
             ObservationsRelationManager::class,
             ProceduresRelationManager::class,
+            BorrowsRelationManager::class,
         ];
     }
 

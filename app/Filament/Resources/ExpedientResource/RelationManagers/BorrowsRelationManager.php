@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\ExpedientResource\RelationManagers;
 
-use App\Enums\ContratoType;
+use App\Models\Bank;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -14,50 +14,48 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class HoldersRelationManager extends RelationManager
+class BorrowsRelationManager extends RelationManager
 {
-    protected static string $relationship = 'holders';
+    protected static string $relationship = 'borrows';
 
-    protected static ?string $modelLabel = 'Titular';
+    protected static ?string $modelLabel = 'Préstamo';
 
-    protected static ?string $pluralModelLabel = 'Titulares';
+    protected static ?string $pluralModelLabel = 'Préstamos';
 
-    protected static ?string $title = 'Titulares';
+    protected static ?string $recordTitleAttribute = 'Préstamos';
+    
+    protected static ?string $title = 'Préstamos';
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('nombre')
+                TextInput::make('tipo')
                     ->required()
                     ->maxLength(255),
-                TextInput::make('edad'),
-                TextInput::make('dni'),
-                TextInput::make('empleo'),
-                Select::make('tipo_contrato')
-                    ->options(ContratoType::class),
-                TextInput::make('antiguedad'),
-                TextInput::make('salario'),
-                TextInput::make('pagos'),
-                TextInput::make('renta'),
+                Select::make('bank_id')
+                    ->options(Bank::all()->pluck('nombre', 'id'))
+                    ->label('Entidad'),
+                TextInput::make('inicial')
+                    ->numeric(),
+                TextInput::make('pendiente')
+                    ->numeric(),
+                TextInput::make('cuota')
+                    ->numeric(),
             ]);
     }
 
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('nombre')
+            ->recordTitleAttribute('tipo')
             ->columns([
-                TextColumn::make('nombre'),
-                TextColumn::make('edad'),
-                TextColumn::make('dni'),
-                TextColumn::make('empleo'),
-                TextColumn::make('tipo_contrato')
-                    ->badge(),
-                TextColumn::make('antiguedad'),
-                TextColumn::make('salario'),
-                TextColumn::make('pagos'),
-                TextColumn::make('renta'),
+                TextColumn::make('tipo'),
+                TextColumn::make('bank.nombre')
+                    ->label('Banco'),
+                TextColumn::make('inicial'),
+                TextColumn::make('pendiente'),
+                TextColumn::make('cuota'),
             ])
             ->filters([
                 //

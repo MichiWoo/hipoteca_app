@@ -22,6 +22,8 @@ class CommentsRelationManager extends RelationManager
 
     protected static ?string $pluralModelLabel = 'Comentarios';
 
+    protected static ?string $title = 'Comentarios';
+
     public function form(Form $form): Form
     {
         return $form

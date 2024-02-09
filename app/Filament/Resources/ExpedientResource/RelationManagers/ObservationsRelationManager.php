@@ -22,6 +22,8 @@ class ObservationsRelationManager extends RelationManager
 
     protected static ?string $pluralModelLabel = 'Observaciones';
 
+    protected static ?string $title = 'Observaciones';
+
     public function form(Form $form): Form
     {
         return $form
