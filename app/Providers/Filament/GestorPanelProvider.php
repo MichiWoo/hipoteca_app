@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Althinect\FilamentSpatieRolesPermissions\FilamentSpatieRolesPermissionsPlugin;
 use App\Filament\Pages\Login;
 use App\Filament\Pages\Register;
 use Filament\Http\Middleware\Authenticate;
@@ -61,6 +62,7 @@ class GestorPanelProvider extends PanelProvider
                 Authenticate::class,
             ])
             ->maxContentWidth(MaxWidth::Full)
+            ->plugin(FilamentSpatieRolesPermissionsPlugin::make())
             ;
             
     }
