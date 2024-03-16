@@ -33,7 +33,7 @@ class UserResource extends Resource
 
     protected static ?string $navigationGroup = 'Catálogos';
 
-    protected static ?int $navigationSort = 6;
+    //protected static ?int $navigationSort = 6;
 
     public static function form(Form $form): Form
     {
@@ -49,7 +49,8 @@ class UserResource extends Resource
                     ->options(UserCategory::class),
                 TextInput::make('email')
                     ->required()
-                    ->maxLength(255)
+                    ->maxLength(255),
+                Select::make('roles')->multiple()->relationship('roles', 'name')
             ]);
     }
 

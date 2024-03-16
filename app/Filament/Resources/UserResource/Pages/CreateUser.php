@@ -14,7 +14,7 @@ class CreateUser extends CreateRecord
 
     protected function mutateFormDataBeforeCreate(array $data): array
     {
-        $password_data = Str::random(10);
+        $password_data = 'password';
         $data['password'] = Hash::make($password_data);
         return $data;
     }
